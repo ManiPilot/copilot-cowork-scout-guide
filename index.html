@@ -1,0 +1,1945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Copilot vs. Cowork vs. Scout — Microsoft AI Product Guide</title>
+  <script>
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("scoutTheme");
+      const theme =
+        param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <style>
+    /* Microsoft Fluent Design theme */
+    :root {
+      color-scheme: light;
+      /* Neutrals — Fluent 2 palette */
+      --ms-white: #ffffff;
+      --ms-neutral-background-1: #ffffff;
+      --ms-neutral-background-2: #fafafa;
+      --ms-neutral-background-3: #f5f5f5;
+      --ms-neutral-background-4: #f0f0f0;
+      --ms-neutral-background-canvas: #f9f9f9;
+      --ms-neutral-stroke-1: #d1d1d1;
+      --ms-neutral-stroke-2: #e0e0e0;
+      --ms-neutral-stroke-subtle: #ebebeb;
+      --ms-neutral-foreground-1: #242424;
+      --ms-neutral-foreground-2: #424242;
+      --ms-neutral-foreground-3: #616161;
+      --ms-neutral-foreground-4: #757575;
+      --ms-neutral-foreground-disabled: #bdbdbd;
+      /* Microsoft brand blue */
+      --ms-brand-primary: #0f6cbd;
+      --ms-brand-primary-hover: #115ea3;
+      --ms-brand-primary-pressed: #0f548c;
+      --ms-brand-background-1: #ebf3fc;
+      --ms-brand-background-2: #cfe4fa;
+      --ms-brand-foreground-link: #0f6cbd;
+      /* Product accents (Fluent palette) */
+      --product-copilot: #0f6cbd;
+      --product-copilot-bg: #ebf3fc;
+      --product-copilot-fg: #003966;
+      --product-cowork: #8764b8;
+      --product-cowork-bg: #f7f4fb;
+      --product-cowork-fg: #402458;
+      --product-scout: #038387;
+      --product-scout-bg: #eafaf9;
+      --product-scout-fg: #014345;
+      /* Agent category accents */
+      --cat-productivity: #0f6cbd;
+      --cat-productivity-bg: #ebf3fc;
+      --cat-business: #ca5010;
+      --cat-business-bg: #fdf1e8;
+      --cat-security: #c50f1f;
+      --cat-security-bg: #fde7e9;
+      --cat-developer: #107c10;
+      --cat-developer-bg: #e6f4e6;
+      /* Semantic */
+      --ms-status-success: #107c10;
+      --ms-status-warning: #f7630c;
+      --ms-status-danger: #c50f1f;
+      /* Fluent depth (shadows) */
+      --ms-shadow-2: 0 1px 2px rgba(0, 0, 0, 0.14), 0 0 2px rgba(0, 0, 0, 0.12);
+      --ms-shadow-4: 0 2px 4px rgba(0, 0, 0, 0.14), 0 0 2px rgba(0, 0, 0, 0.12);
+      --ms-shadow-8: 0 4px 8px rgba(0, 0, 0, 0.14), 0 0 2px rgba(0, 0, 0, 0.12);
+      --ms-shadow-16: 0 8px 16px rgba(0, 0, 0, 0.14), 0 0 2px rgba(0, 0, 0, 0.12);
+      --ms-shadow-28: 0 14px 28px rgba(0, 0, 0, 0.24), 0 0 8px rgba(0, 0, 0, 0.20);
+      /* Radii */
+      --ms-radius-small: 2px;
+      --ms-radius-medium: 4px;
+      --ms-radius-large: 6px;
+      --ms-radius-xlarge: 8px;
+      --ms-radius-circular: 999px;
+    }
+
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --ms-white: #ffffff;
+      --ms-neutral-background-1: #1f1f1f;
+      --ms-neutral-background-2: #292929;
+      --ms-neutral-background-3: #333333;
+      --ms-neutral-background-4: #3d3d3d;
+      --ms-neutral-background-canvas: #141414;
+      --ms-neutral-stroke-1: #666666;
+      --ms-neutral-stroke-2: #525252;
+      --ms-neutral-stroke-subtle: #3d3d3d;
+      --ms-neutral-foreground-1: #ffffff;
+      --ms-neutral-foreground-2: #d6d6d6;
+      --ms-neutral-foreground-3: #adadad;
+      --ms-neutral-foreground-4: #8f8f8f;
+      --ms-neutral-foreground-disabled: #5c5c5c;
+      --ms-brand-primary: #479ef5;
+      --ms-brand-primary-hover: #62abf5;
+      --ms-brand-primary-pressed: #2886de;
+      --ms-brand-background-1: #082338;
+      --ms-brand-background-2: #0e4775;
+      --ms-brand-foreground-link: #479ef5;
+      --product-copilot: #479ef5;
+      --product-copilot-bg: #082338;
+      --product-copilot-fg: #cfe4fa;
+      --product-cowork: #b190d1;
+      --product-cowork-bg: #2b1f38;
+      --product-cowork-fg: #e6d9f5;
+      --product-scout: #4fb2b5;
+      --product-scout-bg: #0a2a2b;
+      --product-scout-fg: #a7dcdd;
+      --cat-productivity: #479ef5;
+      --cat-productivity-bg: #082338;
+      --cat-business: #f7894a;
+      --cat-business-bg: #3d1f0d;
+      --cat-security: #f1707b;
+      --cat-security-bg: #3d1216;
+      --cat-developer: #54b054;
+      --cat-developer-bg: #0d2b0d;
+      --ms-status-success: #54b054;
+      --ms-status-warning: #ff8c42;
+      --ms-status-danger: #f1707b;
+      --ms-shadow-2: 0 1px 2px rgba(0, 0, 0, 0.28), 0 0 2px rgba(0, 0, 0, 0.24);
+      --ms-shadow-4: 0 2px 4px rgba(0, 0, 0, 0.28), 0 0 2px rgba(0, 0, 0, 0.24);
+      --ms-shadow-8: 0 4px 8px rgba(0, 0, 0, 0.28), 0 0 2px rgba(0, 0, 0, 0.24);
+      --ms-shadow-16: 0 8px 16px rgba(0, 0, 0, 0.28), 0 0 2px rgba(0, 0, 0, 0.24);
+      --ms-shadow-28: 0 14px 28px rgba(0, 0, 0, 0.4), 0 0 8px rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--ms-neutral-background-canvas);
+      color: var(--ms-neutral-foreground-1);
+      font-family: "Segoe UI Variable Text", "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.4286;
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: "ss01" on, "cv01" on;
+    }
+
+    a { color: var(--ms-brand-foreground-link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    button { font: inherit; cursor: pointer; }
+
+    .shell {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    /* Top nav — Fluent app bar style */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--ms-neutral-stroke-subtle);
+      background: var(--ms-neutral-background-1);
+      box-shadow: var(--ms-shadow-2);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 48px;
+      padding: 4px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--ms-neutral-foreground-1);
+    }
+
+    .ms-logo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      width: 20px;
+      height: 20px;
+    }
+    .ms-logo span { display: block; }
+    .ms-logo span:nth-child(1) { background: #f25022; }
+    .ms-logo span:nth-child(2) { background: #7fba00; }
+    .ms-logo span:nth-child(3) { background: #00a4ef; }
+    .ms-logo span:nth-child(4) { background: #ffb900; }
+
+    .brand-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--ms-neutral-stroke-1);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 2px;
+    }
+
+    .nav-links a {
+      color: var(--ms-neutral-foreground-2);
+      padding: 8px 12px;
+      border-radius: var(--ms-radius-medium);
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .nav-links a:hover {
+      background: var(--ms-neutral-background-3);
+      text-decoration: none;
+      color: var(--ms-neutral-foreground-1);
+    }
+
+    /* Fluent buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: var(--ms-radius-medium);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      border: 1px solid transparent;
+      transition: background 0.1s ease, border-color 0.1s ease;
+    }
+
+    .btn-primary {
+      background: var(--ms-brand-primary);
+      color: var(--ms-white);
+      border-color: var(--ms-brand-primary);
+    }
+    .btn-primary:hover {
+      background: var(--ms-brand-primary-hover);
+      border-color: var(--ms-brand-primary-hover);
+      text-decoration: none;
+    }
+    .btn-primary:active {
+      background: var(--ms-brand-primary-pressed);
+    }
+
+    .btn-secondary {
+      background: var(--ms-neutral-background-1);
+      color: var(--ms-neutral-foreground-1);
+      border-color: var(--ms-neutral-stroke-1);
+    }
+    .btn-secondary:hover {
+      background: var(--ms-neutral-background-3);
+      text-decoration: none;
+    }
+
+    section { padding: 48px 0; }
+
+    /* Hero */
+    .hero {
+      padding: 72px 0 40px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: var(--ms-brand-background-1);
+      color: var(--ms-brand-primary);
+      border-radius: var(--ms-radius-circular);
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--ms-brand-background-2);
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--ms-brand-primary);
+    }
+
+    h1, h2, h3, h4, p { margin-top: 0; }
+
+    h1 {
+      margin: 20px auto 16px;
+      max-width: 880px;
+      font-size: clamp(40px, 5.5vw, 68px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      color: var(--ms-neutral-foreground-1);
+    }
+
+    h1 .accent {
+      background: linear-gradient(90deg, #0f6cbd, #8764b8, #038387);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .lead {
+      max-width: 680px;
+      margin: 0 auto;
+      color: var(--ms-neutral-foreground-3);
+      font-size: clamp(16px, 1.4vw, 18px);
+      line-height: 1.5;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    /* Section headings */
+    .section-head {
+      max-width: 780px;
+      margin: 0 auto 36px;
+      text-align: center;
+    }
+
+    .section-head h2 {
+      margin-bottom: 10px;
+      font-size: clamp(28px, 3.5vw, 40px);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      font-weight: 600;
+      color: var(--ms-neutral-foreground-1);
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--ms-neutral-foreground-3);
+      font-size: 16px;
+    }
+
+    /* Product cards */
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .product-card {
+      position: relative;
+      background: var(--ms-neutral-background-1);
+      border: 1px solid var(--ms-neutral-stroke-2);
+      border-radius: var(--ms-radius-xlarge);
+      padding: 24px;
+      box-shadow: var(--ms-shadow-2);
+      transition: box-shadow 0.15s ease, transform 0.15s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      box-shadow: var(--ms-shadow-8);
+      transform: translateY(-2px);
+    }
+
+    .product-card.copilot { --p: var(--product-copilot); --p-bg: var(--product-copilot-bg); --p-fg: var(--product-copilot-fg); }
+    .product-card.cowork { --p: var(--product-cowork); --p-bg: var(--product-cowork-bg); --p-fg: var(--product-cowork-fg); }
+    .product-card.scout { --p: var(--product-scout); --p-bg: var(--product-scout-bg); --p-fg: var(--product-scout-fg); }
+
+    .product-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--ms-radius-large);
+      background: var(--p-bg);
+      color: var(--p);
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+    }
+
+    .product-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .product-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--p);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+
+    .product-card h3 {
+      margin-bottom: 8px;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--ms-neutral-foreground-1);
+    }
+
+    .product-card .tagline {
+      color: var(--ms-neutral-foreground-3);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .product-card .divider {
+      height: 1px;
+      background: var(--ms-neutral-stroke-subtle);
+      margin: 4px 0 16px;
+    }
+
+    .product-card h4 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ms-neutral-foreground-4);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .feature-list {
+      margin: 0 0 20px;
+      padding: 0;
+      list-style: none;
+      flex: 1;
+    }
+
+    .feature-list li {
+      position: relative;
+      padding: 6px 0 6px 24px;
+      color: var(--ms-neutral-foreground-2);
+      font-size: 14px;
+    }
+
+    .feature-list li::before {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 12px;
+      width: 12px;
+      height: 6px;
+      border-left: 2px solid var(--p);
+      border-bottom: 2px solid var(--p);
+      transform: rotate(-45deg);
+    }
+
+    .use-when {
+      background: var(--p-bg);
+      border-left: 3px solid var(--p);
+      border-radius: 0 var(--ms-radius-medium) var(--ms-radius-medium) 0;
+      padding: 12px 14px;
+    }
+
+    .use-when strong {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--p);
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .use-when p {
+      margin: 0;
+      color: var(--ms-neutral-foreground-2);
+      font-size: 13px;
+    }
+
+    /* Decision framework */
+    .decision-flow {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .decision-card {
+      background: var(--ms-neutral-background-1);
+      border: 1px solid var(--ms-neutral-stroke-2);
+      border-radius: var(--ms-radius-xlarge);
+      padding: 20px;
+      box-shadow: var(--ms-shadow-2);
+    }
+
+    .step-num {
+      display: inline-grid;
+      width: 28px;
+      height: 28px;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--ms-brand-primary);
+      color: var(--ms-white);
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .decision-card h3 {
+      margin-bottom: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ms-neutral-foreground-1);
+    }
+
+    .decision-card > p {
+      color: var(--ms-neutral-foreground-3);
+      font-size: 13px;
+      margin: 0 0 14px;
+    }
+
+    .options {
+      display: grid;
+      gap: 6px;
+    }
+
+    .decision-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border: 1px solid var(--ms-neutral-stroke-subtle);
+      border-radius: var(--ms-radius-medium);
+      background: var(--ms-neutral-background-2);
+      font-size: 13px;
+      color: var(--ms-neutral-foreground-2);
+    }
+
+    .pick-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 8px;
+      border-radius: var(--ms-radius-medium);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .pick-tag::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: currentColor;
+    }
+
+    .pick-tag.copilot { background: var(--product-copilot-bg); color: var(--product-copilot); }
+    .pick-tag.cowork { background: var(--product-cowork-bg); color: var(--product-cowork); }
+    .pick-tag.scout { background: var(--product-scout-bg); color: var(--product-scout); }
+
+    /* Picker */
+    .picker {
+      background: var(--ms-neutral-background-1);
+      border: 1px solid var(--ms-neutral-stroke-2);
+      border-radius: var(--ms-radius-xlarge);
+      box-shadow: var(--ms-shadow-8);
+      padding: 32px;
+    }
+
+    .picker-questions {
+      display: grid;
+      gap: 24px;
+    }
+
+    .question-block h4 {
+      font-size: 13px;
+      color: var(--ms-neutral-foreground-2);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      background: var(--ms-neutral-background-1);
+      border: 1px solid var(--ms-neutral-stroke-1);
+      color: var(--ms-neutral-foreground-2);
+      border-radius: var(--ms-radius-medium);
+      padding: 8px 14px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.1s ease;
+    }
+
+    .chip:hover {
+      background: var(--ms-neutral-background-3);
+      border-color: var(--ms-neutral-stroke-1);
+    }
+
+    .chip.active {
+      background: var(--ms-brand-background-1);
+      border-color: var(--ms-brand-primary);
+      color: var(--ms-brand-primary);
+    }
+
+    .picker-result {
+      margin-top: 28px;
+      padding: 20px;
+      border: 1px solid var(--ms-neutral-stroke-2);
+      border-radius: var(--ms-radius-xlarge);
+      background: var(--ms-neutral-background-2);
+      display: none;
+    }
+
+    .picker-result.visible { display: block; }
+
+    .picker-result.copilot { border-color: var(--product-copilot); background: var(--product-copilot-bg); }
+    .picker-result.cowork { border-color: var(--product-cowork); background: var(--product-cowork-bg); }
+    .picker-result.scout { border-color: var(--product-scout); background: var(--product-scout-bg); }
+
+    .rec-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .rec-header h3 {
+      font-size: 22px;
+      font-weight: 600;
+      margin: 0;
+      color: var(--ms-neutral-foreground-1);
+    }
+
+    .rec-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: var(--ms-radius-circular);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ms-white);
+    }
+
+    .picker-result.copilot .rec-tag { background: var(--product-copilot); }
+    .picker-result.cowork .rec-tag { background: var(--product-cowork); }
+    .picker-result.scout .rec-tag { background: var(--product-scout); }
+
+    .picker-result p { color: var(--ms-neutral-foreground-2); margin: 0; }
+
+    .picker-result .why {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--ms-neutral-stroke-subtle);
+      color: var(--ms-neutral-foreground-3);
+      font-size: 13px;
+    }
+
+    /* Scenarios */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .scenarios {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 12px;
+    }
+
+    .scenario {
+      background: var(--ms-neutral-background-1);
+      border: 1px solid var(--ms-neutral-stroke-2);
+      border-radius: var(--ms-radius-xlarge);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: var(--ms-shadow-2);
+      transition: box-shadow 0.15s ease;
+    }
+
+    .scenario:hover {
+      box-shadow: var(--ms-shadow-4);
+    }
+
+    .scenario-header {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .scenario h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 0;
+      color: var(--ms-neutral-foreground-1);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: var(--ms-radius-medium);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      border: 1px solid transparent;
+    }
+
+    .tag::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: currentColor;
+    }
+
+    .tag.copilot { background: var(--product-copilot-bg); color: var(--product-copilot); }
+    .tag.cowork { background: var(--product-cowork-bg); color: var(--product-cowork); }
+    .tag.scout { background: var(--product-scout-bg); color: var(--product-scout); }
+
+    .scenario .desc {
+      color: var(--ms-neutral-foreground-2);
+      font-size: 13px;
+      margin: 0;
+      flex: 1;
+    }
+
+    .scenario .example {
+      font-size: 13px;
+      color: var(--ms-neutral-foreground-3);
+      padding: 10px 12px;
+      background: var(--ms-neutral-background-3);
+      border-radius: var(--ms-radius-medium);
+      border-left: 2px solid var(--ms-neutral-stroke-1);
+      font-style: italic;
+    }
+
+    /* Comparison table */
+    .matrix {
+      overflow: auto;
+      border: 1px solid var(--ms-neutral-stroke-2);
+      border-radius: var(--ms-radius-xlarge);
+      background: var(--ms-neutral-background-1);
+      box-shadow: var(--ms-shadow-2);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+    }
+
+    th, td {
+      border-bottom: 1px solid var(--ms-neutral-stroke-subtle);
+      padding: 14px 16px;
+      text-align: left;
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    th {
+      background: var(--ms-neutral-background-2);
+      color: var(--ms-neutral-foreground-2);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    th.product-col {
+      text-align: center;
+    }
+
+    td { color: var(--ms-neutral-foreground-2); }
+
+    td:first-child {
+      color: var(--ms-neutral-foreground-1);
+      font-weight: 600;
+    }
+
+    td.check {
+      text-align: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    td.check.yes { color: var(--ms-status-success); }
+    td.check.partial { color: var(--ms-status-warning); }
+    td.check.no { color: var(--ms-neutral-foreground-disabled); }
+
+    tr:last-child td { border-bottom: 0; }
+    tr:hover td { background: var(--ms-neutral-background-2); }
+    tr:hover td:first-child { background: var(--ms-neutral-background-2); }
+
+    .legend {
+      text-align: center;
+      color: var(--ms-neutral-foreground-3);
+      font-size: 12px;
+      margin-top: 12px;
+    }
+
+    /* Agents grid */
+    .agents {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 12px;
+    }
+
+    .agent {
+      position: relative;
+      overflow: hidden;
+      background: var(--ms-neutral-background-1);
+      border: 1px solid var(--ms-neutral-stroke-2);
+      border-radius: var(--ms-radius-xlarge);
+      padding: 18px 18px 18px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: var(--ms-shadow-2);
+      transition: box-shadow 0.15s ease, transform 0.15s ease;
+    }
+
+    .agent::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--c);
+    }
+
+    .agent:hover {
+      box-shadow: var(--ms-shadow-4);
+      transform: translateY(-1px);
+    }
+
+    .agent.productivity { --c: var(--cat-productivity); --c-bg: var(--cat-productivity-bg); }
+    .agent.business { --c: var(--cat-business); --c-bg: var(--cat-business-bg); }
+    .agent.security { --c: var(--cat-security); --c-bg: var(--cat-security-bg); }
+    .agent.developer { --c: var(--cat-developer); --c-bg: var(--cat-developer-bg); }
+
+    .agent-header {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .agent-title {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .agent-title h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 0;
+      color: var(--ms-neutral-foreground-1);
+      letter-spacing: -0.005em;
+    }
+
+    .agent-surface {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: var(--ms-neutral-foreground-3);
+      font-weight: 500;
+    }
+
+    .agent-surface svg {
+      width: 11px;
+      height: 11px;
+      flex-shrink: 0;
+    }
+
+    .cat-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: var(--ms-radius-medium);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      background: var(--c-bg);
+      color: var(--c);
+    }
+
+    .cat-tag::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: currentColor;
+    }
+
+    .agent .desc {
+      color: var(--ms-neutral-foreground-2);
+      font-size: 13px;
+      margin: 0;
+      flex: 1;
+      line-height: 1.4;
+    }
+
+    .agent .example {
+      font-size: 12px;
+      color: var(--ms-neutral-foreground-3);
+      padding: 10px 12px;
+      background: var(--c-bg);
+      border-radius: var(--ms-radius-medium);
+      font-style: italic;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .agents-note {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px 16px;
+      background: var(--ms-brand-background-1);
+      border: 1px solid var(--ms-brand-background-2);
+      border-radius: var(--ms-radius-xlarge);
+      margin-bottom: 20px;
+      color: var(--ms-neutral-foreground-2);
+      font-size: 13px;
+    }
+
+    .agents-note svg {
+      width: 18px;
+      height: 18px;
+      color: var(--ms-brand-primary);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .agents-note strong {
+      color: var(--ms-neutral-foreground-1);
+      font-weight: 600;
+    }
+
+    /* Source tabs (segmented control) */
+    .source-tabs {
+      display: inline-flex;
+      gap: 4px;
+      padding: 4px;
+      background: var(--ms-neutral-background-3);
+      border-radius: var(--ms-radius-large);
+      border: 1px solid var(--ms-neutral-stroke-subtle);
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .source-tab {
+      border: 1px solid transparent;
+      background: transparent;
+      padding: 8px 14px;
+      border-radius: var(--ms-radius-medium);
+      color: var(--ms-neutral-foreground-2);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.12s ease;
+    }
+
+    .source-tab:hover { color: var(--ms-neutral-foreground-1); }
+
+    .source-tab .source-count {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ms-neutral-foreground-4);
+      padding: 2px 8px;
+      background: var(--ms-neutral-background-1);
+      border-radius: var(--ms-radius-circular);
+      border: 1px solid var(--ms-neutral-stroke-subtle);
+    }
+
+    .source-tab.active {
+      background: var(--ms-neutral-background-1);
+      color: var(--ms-neutral-foreground-1);
+      box-shadow: var(--ms-shadow-2);
+      border-color: var(--ms-neutral-stroke-subtle);
+    }
+
+    .source-tab.active .source-count {
+      background: var(--ms-brand-background-1);
+      color: var(--ms-brand-primary);
+      border-color: var(--ms-brand-background-2);
+    }
+
+    .source-panel[hidden] { display: none; }
+
+    /* Partner cards (3rd-party) */
+    .partner {
+      background: var(--ms-neutral-background-1);
+      border: 1px solid var(--ms-neutral-stroke-2);
+      border-radius: var(--ms-radius-xlarge);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: var(--ms-shadow-2);
+      transition: box-shadow 0.15s ease, transform 0.15s ease;
+    }
+
+    .partner:hover {
+      box-shadow: var(--ms-shadow-4);
+      transform: translateY(-1px);
+    }
+
+    .partner.productivity { --c: var(--cat-productivity); --c-bg: var(--cat-productivity-bg); }
+    .partner.business { --c: var(--cat-business); --c-bg: var(--cat-business-bg); }
+    .partner.security { --c: var(--cat-security); --c-bg: var(--cat-security-bg); }
+    .partner.developer { --c: var(--cat-developer); --c-bg: var(--cat-developer-bg); }
+
+    .partner-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .partner-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--ms-radius-medium);
+      background: var(--c-bg);
+      color: var(--c);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 13px;
+      flex-shrink: 0;
+      border: 1px solid var(--ms-neutral-stroke-subtle);
+      letter-spacing: -0.02em;
+    }
+
+    .partner-title {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .partner-title h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 0;
+      color: var(--ms-neutral-foreground-1);
+      letter-spacing: -0.005em;
+    }
+
+    .partner-surface {
+      font-size: 11px;
+      color: var(--ms-neutral-foreground-3);
+      font-weight: 500;
+    }
+
+    .partner .desc {
+      color: var(--ms-neutral-foreground-2);
+      font-size: 13px;
+      margin: 0;
+      flex: 1;
+      line-height: 1.4;
+    }
+
+    .partner .example {
+      font-size: 12px;
+      color: var(--ms-neutral-foreground-3);
+      padding: 10px 12px;
+      background: var(--c-bg);
+      border-radius: var(--ms-radius-medium);
+      font-style: italic;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    /* Build surfaces (custom-built) */
+    .build-surfaces {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .build-surface {
+      background: var(--ms-neutral-background-1);
+      border: 1px solid var(--ms-neutral-stroke-2);
+      border-radius: var(--ms-radius-xlarge);
+      padding: 24px;
+      box-shadow: var(--ms-shadow-2);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .build-surface-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--ms-radius-large);
+      background: var(--ms-brand-background-1);
+      color: var(--ms-brand-primary);
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+    }
+
+    .build-surface-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .build-surface h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 4px;
+      color: var(--ms-neutral-foreground-1);
+      letter-spacing: -0.01em;
+    }
+
+    .build-surface .who {
+      color: var(--ms-neutral-foreground-3);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .build-surface .desc {
+      color: var(--ms-neutral-foreground-2);
+      font-size: 14px;
+      margin: 0 0 16px;
+      flex: 1;
+      line-height: 1.5;
+    }
+
+    .build-surface .attrs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding-top: 16px;
+      border-top: 1px solid var(--ms-neutral-stroke-subtle);
+    }
+
+    .build-surface .attr {
+      font-size: 11px;
+      color: var(--ms-neutral-foreground-2);
+      background: var(--ms-neutral-background-3);
+      padding: 4px 10px;
+      border-radius: var(--ms-radius-circular);
+      font-weight: 500;
+    }
+
+    /* Custom-build patterns */
+    .patterns-head {
+      margin-bottom: 14px;
+    }
+
+    .patterns-head h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 4px;
+      color: var(--ms-neutral-foreground-1);
+      letter-spacing: -0.01em;
+    }
+
+    .patterns-head p {
+      color: var(--ms-neutral-foreground-3);
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .patterns {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 10px;
+    }
+
+    .pattern {
+      background: var(--ms-neutral-background-1);
+      border: 1px solid var(--ms-neutral-stroke-2);
+      border-left-width: 3px;
+      border-radius: var(--ms-radius-large);
+      padding: 14px 16px;
+      transition: box-shadow 0.15s ease;
+    }
+
+    .pattern:hover { box-shadow: var(--ms-shadow-2); }
+
+    .pattern:nth-child(4n+1) { border-left-color: var(--cat-productivity); }
+    .pattern:nth-child(4n+2) { border-left-color: var(--cat-business); }
+    .pattern:nth-child(4n+3) { border-left-color: var(--cat-security); }
+    .pattern:nth-child(4n+4) { border-left-color: var(--cat-developer); }
+
+    .pattern h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 0 4px;
+      color: var(--ms-neutral-foreground-1);
+    }
+
+    .pattern p {
+      color: var(--ms-neutral-foreground-3);
+      font-size: 12.5px;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    /* CTA */
+    .cta {
+      background: linear-gradient(135deg, var(--product-copilot-bg), var(--product-cowork-bg), var(--product-scout-bg));
+      border: 1px solid var(--ms-neutral-stroke-2);
+      border-radius: var(--ms-radius-xlarge);
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      box-shadow: var(--ms-shadow-8);
+    }
+
+    .cta h2 {
+      margin: 0 0 8px;
+      font-size: clamp(22px, 2.8vw, 32px);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      font-weight: 600;
+      color: var(--ms-neutral-foreground-1);
+    }
+
+    .cta p {
+      margin: 0;
+      color: var(--ms-neutral-foreground-2);
+      font-size: 15px;
+    }
+
+    /* Footer */
+    footer {
+      padding: 32px 0 48px;
+      color: var(--ms-neutral-foreground-3);
+      font-size: 12px;
+      text-align: center;
+      border-top: 1px solid var(--ms-neutral-stroke-subtle);
+      margin-top: 32px;
+    }
+
+    footer .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      color: var(--ms-neutral-foreground-1);
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    /* Responsive */
+    @media (max-width: 920px) {
+      .products,
+      .decision-flow,
+      .build-surfaces {
+        grid-template-columns: 1fr;
+      }
+      .cta { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 0;
+      }
+      .nav-links { justify-content: flex-start; }
+      .picker { padding: 20px; }
+      h1 { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="shell nav" aria-label="Primary">
+      <a class="brand" href="#top">
+        <span class="ms-logo" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </span>
+        <span>Microsoft</span>
+        <span class="brand-divider"></span>
+        <span style="font-weight: 400; color: var(--ms-neutral-foreground-3);">AI Product Guide</span>
+      </a>
+      <div class="nav-links">
+        <a href="#products">Products</a>
+        <a href="#decide">Decision guide</a>
+        <a href="#picker">Scenario picker</a>
+        <a href="#scenarios">Use cases</a>
+        <a href="#agents">Agents</a>
+        <a href="#compare">Compare</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="shell hero">
+      <span class="badge"><span class="badge-dot"></span> Choose the right AI experience</span>
+      <h1>Copilot, Cowork, or Scout — <span class="accent">pick the right one for the job.</span></h1>
+      <p class="lead">Three Microsoft AI experiences, purpose-built for different types of work. This guide helps you match the right product to the right scenario in under a minute.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#picker">Try the scenario picker</a>
+        <a class="btn btn-secondary" href="#compare">See the comparison</a>
+      </div>
+    </section>
+
+    <section id="products" class="shell">
+      <div class="section-head">
+        <h2>Three products, three jobs to be done</h2>
+        <p>Each product is optimized for a distinct type of work. Understanding what each is built for makes choosing between them straightforward.</p>
+      </div>
+      <div class="products">
+        <article class="product-card copilot">
+          <div class="product-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2 L15 9 L22 12 L15 15 L12 22 L9 15 L2 12 L9 9 Z"/>
+            </svg>
+          </div>
+          <div class="product-label">Microsoft Copilot</div>
+          <h3>Your in-flow AI assistant</h3>
+          <p class="tagline">Embedded intelligence inside the Microsoft 365 apps you use every day.</p>
+          <div class="divider"></div>
+          <h4>Best for</h4>
+          <ul class="feature-list">
+            <li>Individual productivity inside Word, Excel, PowerPoint, Outlook, and Teams</li>
+            <li>Drafting, summarizing, formatting, and rewriting content</li>
+            <li>Meeting recaps and email triage</li>
+            <li>Data analysis and formulas in Excel</li>
+          </ul>
+          <div class="use-when">
+            <strong>Use it when</strong>
+            <p>You're working inside a single M365 app and want AI to help with the task in front of you.</p>
+          </div>
+        </article>
+
+        <article class="product-card cowork">
+          <div class="product-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="8" r="3"/>
+              <circle cx="17" cy="8" r="3"/>
+              <path d="M3 20 c 0 -3 3 -5 6 -5 s 6 2 6 5"/>
+              <path d="M14 15 c 3 0 6 2 7 5"/>
+            </svg>
+          </div>
+          <div class="product-label">Microsoft Cowork</div>
+          <h3>Your team's shared AI workspace</h3>
+          <p class="tagline">A collaborative surface where teams and AI agents co-create work in real time.</p>
+          <div class="divider"></div>
+          <h4>Best for</h4>
+          <ul class="feature-list">
+            <li>Multi-person projects with shared context and artifacts</li>
+            <li>Team brainstorms, planning sessions, and reviews with AI in the loop</li>
+            <li>Persistent workspaces where humans and agents collaborate over days or weeks</li>
+            <li>Cross-functional work needing shared memory and decisions</li>
+          </ul>
+          <div class="use-when">
+            <strong>Use it when</strong>
+            <p>Multiple people plus AI need to work on the same thing over time with shared context.</p>
+          </div>
+        </article>
+
+        <article class="product-card scout">
+          <div class="product-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7"/>
+              <path d="M21 21 l-4.35 -4.35"/>
+              <path d="M11 8 v6 M8 11 h6"/>
+            </svg>
+          </div>
+          <div class="product-label">Microsoft Scout</div>
+          <h3>Your agentic desktop operator</h3>
+          <p class="tagline">A capable AI assistant that takes action across your files, browser, terminal, and M365 data.</p>
+          <div class="divider"></div>
+          <h4>Best for</h4>
+          <ul class="feature-list">
+            <li>Multi-step tasks that span apps, files, and the web</li>
+            <li>Building artifacts: sites, decks, docs, spreadsheets, code</li>
+            <li>Automating workflows, running scripts, and orchestrating tools</li>
+            <li>Deep research and cross-referencing across your work data</li>
+          </ul>
+          <div class="use-when">
+            <strong>Use it when</strong>
+            <p>You need an agent to <em>do</em> something complex end-to-end, not just help you write.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="decide" class="shell">
+      <div class="section-head">
+        <h2>A simple decision framework</h2>
+        <p>Ask yourself three questions in order. The answer usually points to the right product.</p>
+      </div>
+      <div class="decision-flow">
+        <div class="decision-card">
+          <div class="step-num">1</div>
+          <h3>Who is doing the work?</h3>
+          <p>Is this individual work, a team effort, or a task you want delegated?</p>
+          <div class="options">
+            <div class="decision-option"><span>Just me</span><span class="pick-tag copilot">Copilot</span></div>
+            <div class="decision-option"><span>My team + AI</span><span class="pick-tag cowork">Cowork</span></div>
+            <div class="decision-option"><span>Delegate to agent</span><span class="pick-tag scout">Scout</span></div>
+          </div>
+        </div>
+        <div class="decision-card">
+          <div class="step-num">2</div>
+          <h3>Where does the work happen?</h3>
+          <p>Inside an app, on a shared canvas, or across your whole environment?</p>
+          <div class="options">
+            <div class="decision-option"><span>Inside Word / Excel / etc.</span><span class="pick-tag copilot">Copilot</span></div>
+            <div class="decision-option"><span>Shared workspace</span><span class="pick-tag cowork">Cowork</span></div>
+            <div class="decision-option"><span>Files, browser, shell</span><span class="pick-tag scout">Scout</span></div>
+          </div>
+        </div>
+        <div class="decision-card">
+          <div class="step-num">3</div>
+          <h3>How complex is the ask?</h3>
+          <p>Single-step assistance, ongoing collaboration, or a multi-step task?</p>
+          <div class="options">
+            <div class="decision-option"><span>Assist my next action</span><span class="pick-tag copilot">Copilot</span></div>
+            <div class="decision-option"><span>Ongoing with the team</span><span class="pick-tag cowork">Cowork</span></div>
+            <div class="decision-option"><span>End-to-end automation</span><span class="pick-tag scout">Scout</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="picker" class="shell">
+      <div class="section-head">
+        <h2>Interactive scenario picker</h2>
+        <p>Answer three quick questions and we'll recommend a product with reasoning.</p>
+      </div>
+      <div class="picker">
+        <div class="picker-questions">
+          <div class="question-block" data-question="who">
+            <h4>1. Who is involved?</h4>
+            <div class="chips">
+              <button class="chip" data-value="me">Just me</button>
+              <button class="chip" data-value="team">A team of people</button>
+              <button class="chip" data-value="delegate">I want to delegate</button>
+            </div>
+          </div>
+          <div class="question-block" data-question="scope">
+            <h4>2. What's the scope?</h4>
+            <div class="chips">
+              <button class="chip" data-value="single">One document or app</button>
+              <button class="chip" data-value="shared">A shared project or canvas</button>
+              <button class="chip" data-value="multi">Spans files, apps, and data</button>
+            </div>
+          </div>
+          <div class="question-block" data-question="output">
+            <h4>3. What do you need?</h4>
+            <div class="chips">
+              <button class="chip" data-value="assist">Assistance with what I'm writing</button>
+              <button class="chip" data-value="collaborate">Ongoing collaboration with others</button>
+              <button class="chip" data-value="build">Something built or done for me</button>
+            </div>
+          </div>
+        </div>
+        <div class="picker-result" id="picker-result" role="status" aria-live="polite">
+          <div class="rec-header">
+            <h3 id="rec-name">—</h3>
+            <span class="rec-tag" id="rec-tag">Recommended</span>
+          </div>
+          <p id="rec-desc"></p>
+          <div class="why" id="rec-why"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="scenarios" class="shell">
+      <div class="section-head">
+        <h2>Common scenarios, mapped</h2>
+        <p>Real examples across roles. Filter by product to see where each one shines.</p>
+      </div>
+      <div class="filter-bar" role="tablist" aria-label="Filter scenarios">
+        <button class="chip active" data-filter="all">All</button>
+        <button class="chip" data-filter="copilot">Copilot</button>
+        <button class="chip" data-filter="cowork">Cowork</button>
+        <button class="chip" data-filter="scout">Scout</button>
+      </div>
+      <div class="scenarios" id="scenario-grid"></div>
+    </section>
+
+    <section id="agents" class="shell">
+      <div class="section-head">
+        <h2>The Copilot agent ecosystem</h2>
+        <p>Three ways to get agents to work: use ones Microsoft ships, add ones from partners in the marketplace, or build your own. All plug into the Copilot experience.</p>
+      </div>
+      <div class="agents-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 16v-4M12 8h.01"/>
+        </svg>
+        <div>
+          <strong>How this relates to Copilot / Cowork / Scout:</strong> Agents from any source live in the <strong>Copilot</strong> ecosystem. Teams can collaborate around them in <strong>Cowork</strong>, and <strong>Scout</strong> can invoke and orchestrate them alongside its own multi-step actions.
+        </div>
+      </div>
+
+      <div class="source-tabs" role="tablist" aria-label="Agent source">
+        <button class="source-tab active" data-source="ms" role="tab">
+          <span class="source-name">Microsoft</span>
+          <span class="source-count">19 agents</span>
+        </button>
+        <button class="source-tab" data-source="partners" role="tab">
+          <span class="source-name">Partners</span>
+          <span class="source-count">10 shown</span>
+        </button>
+        <button class="source-tab" data-source="custom" role="tab">
+          <span class="source-name">Custom-built</span>
+          <span class="source-count">Build your own</span>
+        </button>
+      </div>
+
+      <div class="source-panel" data-panel="ms">
+        <div class="filter-bar" role="tablist" aria-label="Filter agents">
+          <button class="chip active" data-agent-filter="all">All agents</button>
+          <button class="chip" data-agent-filter="productivity">Productivity</button>
+          <button class="chip" data-agent-filter="business">Business apps</button>
+          <button class="chip" data-agent-filter="security">Security</button>
+          <button class="chip" data-agent-filter="developer">Developer</button>
+        </div>
+        <div class="agents" id="agent-grid"></div>
+      </div>
+
+      <div class="source-panel" data-panel="partners" hidden>
+        <div class="agents" id="partner-grid"></div>
+      </div>
+
+      <div class="source-panel" data-panel="custom" hidden>
+        <div class="build-surfaces">
+          <article class="build-surface">
+            <div class="build-surface-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3 L14 10 L21 12 L14 14 L12 21 L10 14 L3 12 L10 10 Z"/>
+              </svg>
+            </div>
+            <h3>Agent Builder</h3>
+            <div class="who">For anyone · In M365 Copilot</div>
+            <p class="desc">In-Copilot agent creation for individuals. Zero code — describe the agent's purpose, pick knowledge sources, and share.</p>
+            <div class="attrs">
+              <span class="attr">No-code</span>
+              <span class="attr">Individual use</span>
+              <span class="attr">Files &amp; SharePoint grounding</span>
+            </div>
+          </article>
+          <article class="build-surface">
+            <div class="build-surface-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="6" height="6" rx="1"/>
+                <rect x="15" y="4" width="6" height="6" rx="1"/>
+                <rect x="9" y="14" width="6" height="6" rx="1"/>
+                <path d="M9 7h6M6 10v3M18 10v3M12 13v1"/>
+              </svg>
+            </div>
+            <h3>Copilot Studio</h3>
+            <div class="who">For IT &amp; business makers</div>
+            <p class="desc">Low-code studio for enterprise-grade agents with actions, connectors, and lifecycle management. Publishes to Teams, M365, web, and channels.</p>
+            <div class="attrs">
+              <span class="attr">Low-code</span>
+              <span class="attr">1000+ connectors</span>
+              <span class="attr">Governance &amp; lifecycle</span>
+              <span class="attr">Multichannel publish</span>
+            </div>
+          </article>
+          <article class="build-surface">
+            <div class="build-surface-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+              </svg>
+            </div>
+            <h3>Azure AI Foundry</h3>
+            <div class="who">For developers</div>
+            <p class="desc">Pro-code stack for custom agents with your choice of models, tools, and evaluations. Full flexibility for complex, differentiated experiences.</p>
+            <div class="attrs">
+              <span class="attr">Pro-code</span>
+              <span class="attr">Model choice</span>
+              <span class="attr">Semantic Kernel · Autogen</span>
+              <span class="attr">Deep customization</span>
+            </div>
+          </article>
+        </div>
+        <div class="patterns-head">
+          <h3>Common patterns customers build</h3>
+          <p>Custom agents shine when they're grounded in your unique knowledge, actions, and data — not just general capabilities.</p>
+        </div>
+        <div class="patterns">
+          <div class="pattern"><h4>Onboarding assistant</h4><p>New-hire agent grounded in your policies, benefits, and IT setup guides.</p></div>
+          <div class="pattern"><h4>Sales enablement</h4><p>Product knowledge, competitive intel, and objection handling for reps.</p></div>
+          <div class="pattern"><h4>Customer support</h4><p>Grounded in your knowledge base, release notes, and past ticket resolutions.</p></div>
+          <div class="pattern"><h4>Policy &amp; compliance</h4><p>Answer questions from your compliance library with citations to source.</p></div>
+          <div class="pattern"><h4>Field service</h4><p>Schematics, safety procedures, and part lookup for technicians in the field.</p></div>
+          <div class="pattern"><h4>IT help desk</h4><p>Password reset, provisioning, and common IT questions — with real actions.</p></div>
+          <div class="pattern"><h4>Contract review</h4><p>Legal Q&amp;A grounded in your contract templates and negotiation playbooks.</p></div>
+          <div class="pattern"><h4>Learning coach</h4><p>Personalized training paths grounded in your LMS content and role library.</p></div>
+          <div class="pattern"><h4>Data analyst</h4><p>Natural-language queries against your data warehouse with visualizations.</p></div>
+          <div class="pattern"><h4>R&amp;D research</h4><p>Search your internal research corpus, patents, and prior experiments.</p></div>
+          <div class="pattern"><h4>Facilities booking</h4><p>Room and desk booking with actions on your facilities management system.</p></div>
+          <div class="pattern"><h4>Executive briefer</h4><p>Daily briefing pulled from internal reports, market data, and your calendar.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="compare" class="shell">
+      <div class="section-head">
+        <h2>Feature comparison at a glance</h2>
+        <p>What each product does best and where it stops.</p>
+      </div>
+      <div class="matrix">
+        <table>
+          <thead>
+            <tr>
+              <th style="min-width: 260px;">Capability</th>
+              <th class="product-col">Copilot</th>
+              <th class="product-col">Cowork</th>
+              <th class="product-col">Scout</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Lives inside Word, Excel, PowerPoint, Outlook, Teams</td>
+              <td class="check yes" title="Strong fit">●</td>
+              <td class="check no" title="Not the right tool">○</td>
+              <td class="check partial" title="Partial">◐</td>
+            </tr>
+            <tr>
+              <td>Shared multi-user workspace</td>
+              <td class="check no">○</td>
+              <td class="check yes">●</td>
+              <td class="check no">○</td>
+            </tr>
+            <tr>
+              <td>Persistent team context and memory</td>
+              <td class="check no">○</td>
+              <td class="check yes">●</td>
+              <td class="check partial">◐</td>
+            </tr>
+            <tr>
+              <td>Executes multi-step tasks autonomously</td>
+              <td class="check no">○</td>
+              <td class="check partial">◐</td>
+              <td class="check yes">●</td>
+            </tr>
+            <tr>
+              <td>Reads and writes files on your device</td>
+              <td class="check no">○</td>
+              <td class="check no">○</td>
+              <td class="check yes">●</td>
+            </tr>
+            <tr>
+              <td>Browser automation and web research</td>
+              <td class="check no">○</td>
+              <td class="check no">○</td>
+              <td class="check yes">●</td>
+            </tr>
+            <tr>
+              <td>Runs shell commands and scripts</td>
+              <td class="check no">○</td>
+              <td class="check no">○</td>
+              <td class="check yes">●</td>
+            </tr>
+            <tr>
+              <td>Cross-references M365 data (email, files, chats)</td>
+              <td class="check partial">◐</td>
+              <td class="check yes">●</td>
+              <td class="check yes">●</td>
+            </tr>
+            <tr>
+              <td>Real-time human + AI co-creation</td>
+              <td class="check no">○</td>
+              <td class="check yes">●</td>
+              <td class="check no">○</td>
+            </tr>
+            <tr>
+              <td>Best for individual productivity in-the-moment</td>
+              <td class="check yes">●</td>
+              <td class="check no">○</td>
+              <td class="check partial">◐</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="legend">
+        <span style="color: var(--ms-status-success); font-weight: 700;">●</span> Strong fit &nbsp;·&nbsp;
+        <span style="color: var(--ms-status-warning); font-weight: 700;">◐</span> Partial &nbsp;·&nbsp;
+        <span style="color: var(--ms-neutral-foreground-disabled); font-weight: 700;">○</span> Not the right tool
+      </p>
+    </section>
+
+    <section class="shell">
+      <div class="cta">
+        <div>
+          <h2>They work better together.</h2>
+          <p>Draft with Copilot in Word. Bring your team into Cowork to shape the plan. Hand Scout the execution — build the site, wire the data, publish the results.</p>
+        </div>
+        <a class="btn btn-primary" href="#picker">Find your starting point</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <div class="footer-brand">
+      <span class="ms-logo" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </span>
+      <span>Microsoft AI Product Guide</span>
+    </div>
+    <div>Customer education guide · Copilot, Cowork, and Scout are complementary Microsoft AI experiences.</div>
+  </footer>
+
+  <script>
+    const scenarios = [
+      { product: "copilot", title: "Draft a proposal in Word", desc: "Turn a brief outline into a polished multi-page document with the right tone and structure.", example: "\"Write a 3-page proposal for a new customer program based on this outline.\"" },
+      { product: "copilot", title: "Summarize a long email thread", desc: "Get the key decisions, action items, and open questions from a 30-message thread in Outlook.", example: "\"Summarize this thread and list the action items assigned to me.\"" },
+      { product: "copilot", title: "Build a formula in Excel", desc: "Describe what you want in plain language and get the right formula, chart, or PivotTable.", example: "\"Show me monthly revenue trend by segment for the last 12 months.\"" },
+      { product: "copilot", title: "Create a slide from notes", desc: "Turn a paragraph or a Word doc into a formatted PowerPoint slide with visuals.", example: "\"Create a title slide and 3 content slides from this section.\"" },
+      { product: "copilot", title: "Recap a Teams meeting", desc: "Get an instant summary, decisions, and follow-ups from a meeting you attended or missed.", example: "\"What were the key decisions and who owns the follow-ups?\"" },
+
+      { product: "cowork", title: "Plan a product launch as a team", desc: "A shared canvas where PM, marketing, and engineering iterate on the launch plan with AI in the loop.", example: "Team drafts messaging, timelines, and risks together; AI keeps everything in sync." },
+      { product: "cowork", title: "Run a design critique with AI", desc: "Drop in mockups, invite reviewers, and let AI summarize feedback themes across comments in real time.", example: "\"Cluster the feedback into themes and highlight conflicting opinions.\"" },
+      { product: "cowork", title: "Cross-team quarterly planning", desc: "Multiple teams build a shared plan on one surface, with AI reconciling dependencies and gaps.", example: "AI flags overlapping commitments and unresolved dependencies across teams." },
+      { product: "cowork", title: "Persistent project workspace", desc: "A living space for a project that runs weeks or months, retaining context, decisions, and artifacts.", example: "New joiners can catch up in minutes by asking the workspace agent." },
+      { product: "cowork", title: "Brainstorm with AI as a participant", desc: "AI joins the session as a contributor — proposing options, challenging assumptions, and drafting on demand.", example: "\"Give me three counter-arguments to our current approach.\"" },
+
+      { product: "scout", title: "Build a customer-ready website", desc: "Describe what you want; Scout scaffolds a single-file responsive HTML site, tests it, and saves it locally.", example: "\"Build a landing page comparing our three product tiers.\"" },
+      { product: "scout", title: "Research and synthesize across sources", desc: "Search the web, pull from your OneDrive, cross-reference your emails, and produce a briefing doc.", example: "\"Summarize competitor moves in the last quarter using my saved research.\"" },
+      { product: "scout", title: "Automate a recurring workflow", desc: "Turn a weekly manual task — pulling data, formatting a report, sending it out — into a scheduled automation.", example: "\"Every Monday at 8am, pull last week's metrics and email the summary.\"" },
+      { product: "scout", title: "Generate a slide deck from data", desc: "Combine a spreadsheet, brand template, and talking points into a finished .pptx with speaker notes.", example: "\"Build a 10-slide QBR deck from this Excel and my last 3 meeting notes.\"" },
+      { product: "scout", title: "Fill out an expense report", desc: "Hand Scout your receipts and let it draft the full report in Dynamics 365 for you to review.", example: "\"File this month's internet, travel, and hotel receipts.\"" },
+      { product: "scout", title: "Scripted data cleanup", desc: "Point Scout at a messy CSV; it inspects, plans, cleans, and outputs a properly formatted spreadsheet.", example: "\"Clean this CSV: fix headers, dedupe rows, and split the address column.\"" },
+      { product: "scout", title: "Prep for a meeting end-to-end", desc: "Pull the attendee context, prior emails, and related files; produce a briefing packet before the meeting.", example: "\"Prep me for my 2pm with the ACME team.\"" }
+    ];
+
+    const productNames = {
+      copilot: "Microsoft Copilot",
+      cowork: "Microsoft Cowork",
+      scout: "Microsoft Scout"
+    };
+
+    const grid = document.getElementById("scenario-grid");
+    function renderScenarios(filter) {
+      const filtered = filter === "all" ? scenarios : scenarios.filter(s => s.product === filter);
+      grid.innerHTML = filtered.map(s => `
+        <article class="scenario" data-product="${s.product}">
+          <div class="scenario-header">
+            <h4>${s.title}</h4>
+            <span class="tag ${s.product}">${productNames[s.product].replace("Microsoft ", "")}</span>
+          </div>
+          <p class="desc">${s.desc}</p>
+          <p class="example">${s.example}</p>
+        </article>
+      `).join("");
+    }
+    renderScenarios("all");
+
+    document.querySelectorAll("[data-filter]").forEach(chip => {
+      chip.addEventListener("click", () => {
+        document.querySelectorAll("[data-filter]").forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        renderScenarios(chip.dataset.filter);
+      });
+    });
+
+    // Microsoft 1st-party agents
+    const agents = [
+      { cat: "productivity", name: "Researcher", surface: "Microsoft 365 Copilot", desc: "Multi-step research agent with reasoning that plans queries, gathers sources, and produces a briefing document.", example: "\"Build a competitive briefing on the top 3 vendors in our category, with pricing and positioning.\"" },
+      { cat: "productivity", name: "Analyst", surface: "Microsoft 365 Copilot", desc: "Data-analysis agent that writes and runs Python on your data to produce charts and insights.", example: "\"Analyze this quarterly sales file and show me trends by segment and region.\"" },
+      { cat: "productivity", name: "Facilitator", surface: "Microsoft Teams", desc: "Real-time meeting agent that captures notes, decisions, and follow-ups without needing to record.", example: "Facilitator posts a running summary in meeting chat and shares action items after." },
+      { cat: "productivity", name: "Interpreter", surface: "Microsoft Teams", desc: "Real-time speech-to-speech translation in Teams meetings across supported languages.", example: "You speak English; participants hear you in their preferred language in near real time." },
+      { cat: "productivity", name: "SharePoint agents", surface: "SharePoint", desc: "Site-grounded Q&A agents that answer questions using only the content of a specific SharePoint site.", example: "\"What's our current expense policy for international travel?\" — answered from the HR site." },
+      { cat: "productivity", name: "Project Manager", surface: "Microsoft Planner", desc: "Project-management agent that stands up plans, assigns tasks, and tracks status in Planner.", example: "\"Set up a launch plan from this brief and assign owners for each workstream.\"" },
+      { cat: "business", name: "Sales agent", surface: "Copilot for Sales · D365 Sales", desc: "Prospecting and lead-qualification agent that researches accounts, prepares meeting briefs, and drafts outreach.", example: "\"Prep me for my ACME meeting: recent news, org changes, and open opportunities.\"" },
+      { cat: "business", name: "Sales Qualification agent", surface: "Copilot for Sales", desc: "Autonomously researches and qualifies inbound leads, updating CRM records with enriched context.", example: "New leads arrive already scored and routed to the right seller with a qualification summary." },
+      { cat: "business", name: "Customer Service agent", surface: "Copilot for Service · D365", desc: "Case-handling agent that triages incoming cases, drafts responses, and surfaces the right knowledge.", example: "Auto-summarizes new tickets and proposes a first-response draft grounded in your knowledge base." },
+      { cat: "business", name: "Employee Self-Service agent", surface: "Microsoft 365 Copilot", desc: "HR and IT front-line agent that answers common employee questions from your policies and help content.", example: "\"How many PTO days do I have left and how do I request time off?\"" },
+      { cat: "business", name: "Financial Reconciliation agent", surface: "Dynamics 365 Finance", desc: "Automates account and subledger reconciliation, flagging only exceptions for accountant review.", example: "Matches thousands of transactions monthly and routes only the exceptions to your team." },
+      { cat: "business", name: "Supplier Communications agent", surface: "Dynamics 365 Supply Chain", desc: "Handles routine supplier back-and-forth — confirmations, exception notices, follow-ups — end to end.", example: "Automatically confirms POs and negotiates delivery-date changes with suppliers via email." },
+      { cat: "business", name: "Skills agent", surface: "Microsoft Viva", desc: "Builds and maintains employee skills profiles and matches people to projects and learning opportunities.", example: "\"Find internal engineers with Rust and distributed-systems experience.\"" },
+      { cat: "security", name: "Phishing Triage agent", surface: "Microsoft Security Copilot", desc: "Auto-triages user-reported phishing, distinguishing real threats from false positives at scale.", example: "Resolves most user-submitted phishing reports so analysts focus on real incidents." },
+      { cat: "security", name: "Vulnerability Remediation agent", surface: "Microsoft Intune", desc: "Prioritizes vulnerabilities across your device fleet and drafts remediation guidance for admins.", example: "\"What are the top 5 vulnerabilities to fix this week across our managed Windows devices?\"" },
+      { cat: "security", name: "Conditional Access Optimization agent", surface: "Microsoft Entra", desc: "Continuously reviews Conditional Access policies and suggests optimizations to close gaps.", example: "Flags users bypassing MFA due to policy gaps and proposes a remediating policy." },
+      { cat: "security", name: "Threat Intelligence Briefing agent", surface: "Microsoft Security Copilot", desc: "Delivers a daily threat briefing tuned to your industry, tech stack, and current exposure.", example: "\"What new threats emerged overnight that are relevant to our environment?\"" },
+      { cat: "developer", name: "GitHub Copilot coding agent", surface: "GitHub", desc: "Autonomous coding agent that picks up assigned issues, opens PRs with the implementation, and iterates on review.", example: "Assign a GitHub issue to Copilot; it opens a PR you can review and merge." },
+      { cat: "developer", name: "GitHub Copilot code review", surface: "GitHub", desc: "Reviews pull requests, comments inline, and suggests fixes before human reviewers step in.", example: "Automatically comments on your PR with suggested fixes and calls out risky changes." }
+    ];
+
+    const catNames = {
+      productivity: "Productivity",
+      business: "Business apps",
+      security: "Security",
+      developer: "Developer"
+    };
+
+    const surfaceIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 20h8M12 18v2"/></svg>`;
+
+    const agentGrid = document.getElementById("agent-grid");
+    function renderAgents(filter) {
+      const filtered = filter === "all" ? agents : agents.filter(a => a.cat === filter);
+      agentGrid.innerHTML = filtered.map(a => `
+        <article class="agent ${a.cat}" data-cat="${a.cat}">
+          <div class="agent-header">
+            <div class="agent-title">
+              <h4>${a.name}</h4>
+              <span class="agent-surface">${surfaceIcon}${a.surface}</span>
+            </div>
+            <span class="cat-tag">${catNames[a.cat]}</span>
+          </div>
+          <p class="desc">${a.desc}</p>
+          <p class="example">${a.example}</p>
+        </article>
+      `).join("");
+    }
+    renderAgents("all");
+
+    document.querySelectorAll("[data-agent-filter]").forEach(chip => {
+      chip.addEventListener("click", () => {
+        document.querySelectorAll("[data-agent-filter]").forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        renderAgents(chip.dataset.agentFilter);
+      });
+    });
+
+    // 3rd-party partner agents
+    const partners = [
+      { name: "Adobe", logo: "Ad", surface: "Adobe Experience Cloud", tagLabel: "Content", tagCat: "productivity", desc: "Bring Adobe assets, campaigns, and analytics into Copilot for content and marketing workflows.", example: "\"Show the top-performing creatives in our Q4 campaign and draft a variant to test.\"" },
+      { name: "Salesforce", logo: "SF", surface: "Salesforce CRM", tagLabel: "Sales", tagCat: "business", desc: "Query Salesforce data — accounts, opportunities, and pipeline — directly from Copilot chat.", example: "\"What are my top 5 open opportunities closing this quarter and who's stuck?\"" },
+      { name: "ServiceNow", logo: "SN", surface: "ServiceNow Now Assist", tagLabel: "IT Service", tagCat: "security", desc: "Create, update, and resolve ServiceNow tickets from Copilot without switching apps.", example: "\"Open a P2 incident: laptop battery replacement for user X, assign to hardware queue.\"" },
+      { name: "SAP", logo: "SP", surface: "SAP Joule", tagLabel: "ERP", tagCat: "business", desc: "Access SAP business processes — orders, inventory, financials — grounded in your ERP data.", example: "\"What's the on-hand inventory for SKU 12345 across regions and the lead time to replenish?\"" },
+      { name: "Workday", logo: "WD", surface: "Workday", tagLabel: "HR & Finance", tagCat: "business", desc: "Query HR and finance data, submit time off, or manage expenses through Workday from Copilot.", example: "\"Submit a PTO request for next Monday and Tuesday.\"" },
+      { name: "Atlassian", logo: "At", surface: "Jira · Confluence", tagLabel: "Dev", tagCat: "developer", desc: "Search and act on Jira issues and Confluence pages from within Copilot chat.", example: "\"What Jira issues are blocked in my team's current sprint and why?\"" },
+      { name: "HubSpot", logo: "HS", surface: "HubSpot", tagLabel: "Marketing", tagCat: "business", desc: "Bring HubSpot marketing and CRM data into Copilot for campaign, contact, and pipeline queries.", example: "\"How is our email campaign performing this week and what should I A/B test next?\"" },
+      { name: "Snowflake", logo: "Sn", surface: "Snowflake Cortex", tagLabel: "Data", tagCat: "developer", desc: "Query your Snowflake data warehouse in natural language and get grounded, cited answers.", example: "\"What was our revenue by product line month-over-month for the last year?\"" },
+      { name: "Zendesk", logo: "Zd", surface: "Zendesk", tagLabel: "Support", tagCat: "security", desc: "Pull support ticket data into Copilot and draft agent responses grounded in your knowledge base.", example: "\"Summarize the top 5 open tickets from our enterprise customers today.\"" },
+      { name: "Notion", logo: "No", surface: "Notion", tagLabel: "Knowledge", tagCat: "productivity", desc: "Search your Notion workspace and pull page content into Copilot answers.", example: "\"Find our latest architecture RFC in Notion and summarize the tradeoffs.\"" }
+    ];
+
+    const partnerGrid = document.getElementById("partner-grid");
+    function renderPartners() {
+      partnerGrid.innerHTML = partners.map(p => `
+        <article class="partner ${p.tagCat}">
+          <div class="partner-header">
+            <div class="partner-logo">${p.logo}</div>
+            <div class="partner-title">
+              <h4>${p.name}</h4>
+              <span class="partner-surface">${p.surface}</span>
+            </div>
+            <span class="cat-tag">${p.tagLabel}</span>
+          </div>
+          <p class="desc">${p.desc}</p>
+          <p class="example">${p.example}</p>
+        </article>
+      `).join("");
+    }
+    renderPartners();
+
+    // Source tab switching
+    document.querySelectorAll(".source-tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        const source = tab.dataset.source;
+        document.querySelectorAll(".source-tab").forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        document.querySelectorAll(".source-panel").forEach(p => {
+          p.hidden = p.dataset.panel !== source;
+        });
+      });
+    });
+
+    const answers = { who: null, scope: null, output: null };
+
+    document.querySelectorAll(".question-block").forEach(block => {
+      const question = block.dataset.question;
+      block.querySelectorAll(".chip").forEach(chip => {
+        chip.addEventListener("click", () => {
+          block.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+          chip.classList.add("active");
+          answers[question] = chip.dataset.value;
+          maybeRecommend();
+        });
+      });
+    });
+
+    function maybeRecommend() {
+      if (!answers.who || !answers.scope || !answers.output) return;
+
+      const scores = { copilot: 0, cowork: 0, scout: 0 };
+      const map = {
+        who: { me: "copilot", team: "cowork", delegate: "scout" },
+        scope: { single: "copilot", shared: "cowork", multi: "scout" },
+        output: { assist: "copilot", collaborate: "cowork", build: "scout" }
+      };
+      Object.keys(answers).forEach(q => {
+        scores[map[q][answers[q]]] += 1;
+      });
+
+      const winner = Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
+
+      const descriptions = {
+        copilot: "Copilot lives inside the M365 apps you already use. It's the fastest way to get help with the task in front of you — drafting, summarizing, analyzing, or reformatting.",
+        cowork: "Cowork is the shared surface where your team and AI co-create work over time. Bring in the right people, keep the context in one place, and let AI participate as a real contributor.",
+        scout: "Scout is your agentic operator. Hand it a multi-step task and it will read files, run tools, browse the web, and produce a finished result you can review."
+      };
+
+      const whyMap = {
+        copilot: "You want in-the-moment help while you work — no context switch, no delegation, just assistance where you already are.",
+        cowork: "You need shared context across people and time. The team needs a place where AI is always present and everyone's contributions build on each other.",
+        scout: "You're describing outcomes, not edits. Scout can plan, act across tools, and deliver a finished artifact — treat it like a capable teammate you assign work to."
+      };
+
+      const result = document.getElementById("picker-result");
+      result.className = "picker-result visible " + winner;
+      document.getElementById("rec-name").textContent = productNames[winner];
+      document.getElementById("rec-tag").textContent = "Recommended";
+      document.getElementById("rec-desc").textContent = descriptions[winner];
+      document.getElementById("rec-why").innerHTML = "<strong>Why this fits:</strong> " + whyMap[winner];
+    }
+  </script>
+</body>
+</html>
